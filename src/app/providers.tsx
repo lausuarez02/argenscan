@@ -2,7 +2,7 @@
 
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { createConfig, WagmiConfig } from 'wagmi';
-import { http } from 'wagmi';
+import { http, createPublicClient } from 'viem';
 import { Chain } from 'viem';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -24,6 +24,25 @@ const mantleChain: Chain = {
   },
 } as const;
 
+const mantleTestnet = {
+  id: 5001,
+  name: 'Mantle Testnet',
+  network: 'mantle-testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'MNT',
+    symbol: 'MNT',
+  },
+  rpcUrls: {
+    default: { http: ['https://rpc.testnet.mantle.xyz'] },
+    public: { http: ['https://rpc.testnet.mantle.xyz'] },
+  },
+  blockExplorers: {
+    default: { name: 'Mantle Testnet Explorer', url: 'https://explorer.testnet.mantle.xyz' },
+  },
+  testnet: true,
+} as const;
+
 const queryClient = new QueryClient();
 
 const { connectors } = getDefaultWallets({
@@ -32,10 +51,11 @@ const { connectors } = getDefaultWallets({
 });
 
 const config = createConfig({
-  chains: [mantleChain],
+  chains: [mantleChain, mantleTestnet],
   connectors,
   transports: {
-    [mantleChain.id]: http()
+    [mantleChain.id]: http(),
+    [mantleTestnet.id]: http()
   }
 });
 

@@ -27,11 +27,11 @@ export default function CreateGame() {
 
     setIsLoading(true);
     try {
-      // Send 1 MANTLE using wagmi's hook
+      // Send 0.001 MANTLE using wagmi's hook
       const result = await sendTransaction({
-        to: '0x52eF0e850337ecEC348C41919862dBAac42F620B',
-        value: parseEther('1'),
-        chainId: 5001, // Mantle chainId
+        to: '0xC140EfB0f5b2e7ca899877d21b802f04c9c25397',
+        value: parseEther('0.001'),
+        chainId: 5000, // Mantle chainId
         gas: BigInt(21000), // Standard gas limit for ETH transfers
       });
 
@@ -122,7 +122,7 @@ export default function CreateGame() {
                 disabled={isLoading}
                 className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? 'MINTING...' : 'MINT FOR 1 $MANTLE 🚀'}
+                {isLoading ? 'MINTING...' : 'MINT FOR 0.001 $MANTLE 🚀'}
               </button>
 
               <p className="text-center mt-4 text-gray-400">
